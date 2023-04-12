@@ -1,38 +1,54 @@
-import { Text, Pressable } from 'react-native';
+import { Text, Pressable, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-const Button = ({ title }) => {
-  // TouchableHighlight : 클릭시 하이라이트 효과
-  // TouchableOpacity : 클릭시 투명도 낮아짐
-  // Presable : 클릭시 이벤트 발생하게 할 수 있다.
-  //   -> style={({ pressed }) => {
-  //     return [
-  //       { backgroundColor: 'red' },
-  //       pressed && { backgroundColor: 'orange', opacity: 0.3 },
-  //     ];
-  //   }}
+export const ButtonTypes = {
+  NUMBER: 'NUMBER',
+  OPERATOR: 'OPERATOR',
+};
 
+const Colors = {
+  NUMBER: ['#71717a', '#3f3f46'],
+  OPERATOR: ['#f59e0b', '#b45309'],
+};
+const Button = ({ title, onPress, buttonStyle, buttonType }) => {
   return (
     <Pressable
-      onPress={() => console.log('click')}
-      style={({ pressed }) => {
-        return [
-          { backgroundColor: 'red' },
-          pressed && { backgroundColor: 'orange', opacity: 0.3 },
-        ];
-      }}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.button,
+        {
+          backgroundColor: Colors[buttonType][0],
+        },
+        pressed && {
+          backgroundColor: Colors[buttonType][1],
+        },
+        buttonStyle,
+      ]}
     >
-      <Text>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
 };
 
+Button.defaultProps = {
+  buttonType: ButtonTypes.NUMBER,
+};
+
 Button.propTypes = {
   title: PropTypes.string.isRequired, // -> title이 string형이고 다른 형태가 전달되면 어디서 잘못된 형태가 전달되었는지 확인 가능함, isRequired를 통해 title이 꼭 전달되어야 함을 표시
+  onPress: PropTypes.func.isRequired,
+  buttonStyle: PropTypes.object,
+  buttonType: PropTypes.oneOf(Object.values(ButtonTypes)),
 };
 
-Button.defaultProps = {
-  title: 'Default', // -> 해당 props가 전달되지 않았을 경우 Default값을 표시
-};
-
+const styles = StyleSheet.create({
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 50,
+    color: '#ffffff',
+  },
+});
 export default Button;
