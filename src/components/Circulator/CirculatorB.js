@@ -1,16 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { useWindowDimensions, StyleSheet, View, Text } from 'react-native';
-import Button, { ButtonTypes } from '../Button';
-import { useState } from 'react';
+import { StatusBar } from "expo-status-bar";
+import { useWindowDimensions, StyleSheet, View, Text } from "react-native";
+import Button, { ButtonTypes } from "../Button";
+import { useState } from "react";
 
 const Operators = {
-  CLEAR: 'C',
-  MINUS: '-',
-  PLUS: '+',
-  Delete: 'D',
-  EQULAL: '=',
-  MULTI: 'X',
-  DIVIDE: '%',
+  CLEAR: "C",
+  MINUS: "-",
+  PLUS: "+",
+  Delete: "D",
+  EQULAL: "=",
+  MULTI: "X",
+  DIVIDE: "%",
 };
 export default function CirculatorB() {
   const [result, setResult] = useState(0);
@@ -23,7 +23,7 @@ export default function CirculatorB() {
 
   const calculate = () => {
     let calculatedNumber = 0;
-    let operator = '';
+    let operator = "";
 
     formula.forEach((value) => {
       if (
@@ -57,7 +57,6 @@ export default function CirculatorB() {
 
   const onPressNumber = (num) => {
     const last = formula[formula.length - 1];
-
     if (isNaN(last)) {
       setResult(num);
       setFormula((prev) => [...prev, num]);
@@ -132,65 +131,66 @@ export default function CirculatorB() {
       {/* 결과 */}
       <View style={styles.resultContainer}>
         <Text style={styles.result}>
-          {result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
       </View>
 
       {/* 새로운 버튼 */}
       <View style={styles.buttonContainer}>
         <View style={styles.columnPad}>
-          <View>
-            <Button
-              title={Operators.CLEAR}
-              onPress={() => onPressOperator(Operators.CLEAR)}
-              buttonStyle={{ width, height, marginRight: 1 }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-            <Button
-              style={styles.reverseBtn}
-              title={Operators.Delete}
-              onPress={() => onPressOperator(Operators.Delete)}
-              buttonStyle={{ width, height, marginRight: 1, marginTop: 1 }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-            <Button
-              title={Operators.EQULAL}
-              onPress={() => onPressOperator(Operators.EQULAL)}
-              buttonStyle={{
-                width,
-                height: height * 2 + 1,
-                marginRight: 1,
-                marginTop: 1,
-              }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-          </View>
-          <View>
-            <Button
-              title={Operators.PLUS}
-              onPress={() => onPressOperator(Operators.PLUS)}
-              buttonStyle={{ width, height }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-            <Button
-              title={Operators.MINUS}
-              onPress={() => onPressOperator(Operators.MINUS)}
-              buttonStyle={{ width, height, marginTop: 1 }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-            <Button
-              title={Operators.MULTI}
-              onPress={() => onPressOperator(Operators.MULTI)}
-              buttonStyle={{ width, height, marginTop: 1 }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-            <Button
-              title={Operators.DIVIDE}
-              onPress={() => onPressOperator(Operators.DIVIDE)}
-              buttonStyle={{ width, height, marginTop: 1 }}
-              buttonType={ButtonTypes.OPERATOR}
-            ></Button>
-          </View>
+          <Button
+            title={Operators.CLEAR}
+            onPress={() => onPressOperator(Operators.CLEAR)}
+            buttonStyle={{ width, height, marginRight: 1, marginTop: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            style={styles.reverseBtn}
+            title={Operators.Delete}
+            onPress={() => onPressOperator(Operators.Delete)}
+            buttonStyle={{
+              width,
+              height: height - 1,
+              marginRight: 1,
+              marginTop: 1,
+            }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            title={Operators.EQULAL}
+            onPress={() => onPressOperator(Operators.EQULAL)}
+            buttonStyle={{
+              width,
+              height: height * 2,
+              marginRight: 1,
+              marginTop: 1,
+            }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            title={Operators.PLUS}
+            onPress={() => onPressOperator(Operators.PLUS)}
+            buttonStyle={{ width, height, marginTop: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            title={Operators.MINUS}
+            onPress={() => onPressOperator(Operators.MINUS)}
+            buttonStyle={{ width, height: height - 1, marginTop: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            title={Operators.MULTI}
+            onPress={() => onPressOperator(Operators.MULTI)}
+            buttonStyle={{ width, height, marginTop: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
+          <Button
+            title={Operators.DIVIDE}
+            onPress={() => onPressOperator(Operators.DIVIDE)}
+            buttonStyle={{ width, height: height - 1, marginTop: 1 }}
+            buttonType={ButtonTypes.OPERATOR}
+          ></Button>
         </View>
         <View style={styles.rowPad}>
           <View style={styles.number}>
@@ -204,15 +204,14 @@ export default function CirculatorB() {
                 />
               );
             })}
-          </View>
-          <View>
             <Button
               title="0"
               onPress={() => onPressNumber(0)}
               buttonStyle={{
-                width: width * 3 + 2,
-                height: height + 1,
+                width: width * 3 + 3,
+                height: height - 1,
                 marginLeft: 1,
+                marginTop: 1,
               }}
               buttonType={ButtonTypes.NUMBER}
             ></Button>
@@ -222,48 +221,49 @@ export default function CirculatorB() {
     </View>
   );
 }
-
 //스타일 시트로 객체로 스타일 전달
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'stretch',
-    justifyContent: 'center',
+    flexDirection: "column",
+    backgroundColor: "#fff",
+    alignItems: "stretch",
+    justifyContent: "center",
   },
   resultContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    backgroundColor: '#000000',
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    backgroundColor: "#000000",
   },
   buttonContainer: {
-    backgroundColor: '#000000',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flex: 1,
+    backgroundColor: "#000000",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   result: {
     fontSize: 60,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontWeight: "700",
+    color: "#ffffff",
     paddingBottom: 30,
     paddingRight: 30,
   },
   columnPad: {
-    flexDirection: 'row',
-    marginTop: 1,
+    flexDirection: "column",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
   },
   // leftPad: {
   //   width: '75%',
   // },
   rowPad: {
-    width: '60%',
+    width: "60%",
   },
   number: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
   },
   // bottom: {
   //   flexDirection: 'row',

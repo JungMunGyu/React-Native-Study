@@ -1,5 +1,5 @@
 // import CirculatorA from './components/Circulator/CirculatorA';
-import CirculatorB from './components/Circulator/CirculatorB';
+import CirculatorB from "./components/Circulator/CirculatorB";
 
 export default function App() {
   return <CirculatorB />;
